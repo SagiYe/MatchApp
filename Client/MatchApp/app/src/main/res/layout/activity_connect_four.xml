@@ -1,0 +1,8 @@
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/game_fragment_container"
+    android:name="sagiyehezkel.matchapp.games.ConnectFourActivityFragment"
+    tools:layout="@layout/fragment_connect_four"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
+

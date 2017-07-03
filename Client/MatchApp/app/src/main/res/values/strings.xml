@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">MatchApp</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_debug">Debug</string>
+    <string name="action_new_game">New Game</string>
+    <string name="action_search">Search</string>
+    <string name="action_refresh_contacts_list">Refresh</string>
+    <string name="title_activity_registration">Registration</string>
+
+    <!-- MainActivity Strings -->
+    <string name="yesterday">Yesterday</string>
+
+    <!-- RegistrationActivity Strings -->
+    <string name="welcome">Welcome to MatchApp!</string>
+    <string name="signup_description">To sign up please insert your country code and phone number:</string>
+    <string name="country_code">COUNTRY CODE</string>
+    <string name="phone_number">PHONE NUMBER</string>
+    <string name="sign_up">SIGN UP</string>
+
+
+    <!-- GcmRegistrationManager Strings -->
+    <string name="pref_registration_id" translatable="false">PREF_REG_ID</string>
+    <string name="pref_app_version" translatable="false">PREF_APP_VERSION</string>
+
+    <!-- Pref Strings -->
+
+    <string name="pref_user_phone_number" translatable="false">PREF_USER_PHONE_NUMBER</string>
+    <string name="pref_user_country_code" translatable="false">PREF_USER_COUNTRY_CODE</string>
+
+    <!-- Provider Strings -->
+
+    <string name="content_authority">sagiyehezkel.matchapp</string>
+    <string name="title_activity_new_game">Select player</string>
+
+    <string name="hello_world">Hello world!</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_debug">DebugActivity</string>
+    <string name="title_activity_connect_four">ConnectFourActivity</string>
+    <string name="title_activity_game_board">GameBoardActivity</string>
+</resources>
