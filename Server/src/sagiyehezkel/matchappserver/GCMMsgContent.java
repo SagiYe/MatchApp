@@ -57,6 +57,10 @@ public class GCMMsgContent implements Serializable {
 	        wr.close();
 
 	        int responseCode = conn.getResponseCode();
+	        
+	        if (responseCode != 200) {
+	        	System.out.println("Sent message respone code:" + Integer.toString(responseCode));
+	        }
 	        	
 	        BufferedReader in = new BufferedReader(
 	                new InputStreamReader(conn.getInputStream()));

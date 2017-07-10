@@ -1,18 +1,9 @@
 package sagiyehezkel.matchappserver;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Util {
 	
