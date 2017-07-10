@@ -31,7 +31,7 @@ import java.util.List;
  * Created by Sagi on 08/09/2015.
  */
 public class Utility {
-    public static final String SERVER_ADDRESS = "http://3413bb59.ngrok.io";
+    public static final String SERVER_ADDRESS = "http://9e942be0.ngrok.io";
 //    public static final String SERVER_ADDRESS = "http://10.0.0.13:48123";
 
     private static int mNotificationId = 1;

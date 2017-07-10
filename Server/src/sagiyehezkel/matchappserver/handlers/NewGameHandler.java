@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import sagiyehezkel.matchappserver.Util;
 import sagiyehezkel.matchappserver.database.GamesDBHelper;
+import sagiyehezkel.matchappserver.security.AdvancedEncryptionStandard;
 
 public class NewGameHandler extends Handler {
 
@@ -21,6 +22,12 @@ public class NewGameHandler extends Handler {
 	@Override
 	protected String handleMsg(String request) {
 		try {
+			AdvancedEncryptionStandard aes = new AdvancedEncryptionStandard();
+			request = aes.decrypt(request);
+			
+			System.out.println(request);
+			
+			
 			JSONObject requestJson = new JSONObject(request);
 			String gameType = requestJson.getString(JSON_FIELD_NAME_GAME_TYPE);
 			ArrayList<String> playersList = Util.fromJsonArrayToArrayList(requestJson.getJSONArray(JSON_FIELD_NAME_PLAYERS_LIST));

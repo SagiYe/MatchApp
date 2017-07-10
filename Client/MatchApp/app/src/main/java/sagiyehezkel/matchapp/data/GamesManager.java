@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import sagiyehezkel.matchapp.Utility;
+import sagiyehezkel.matchapp.security.AdvancedEncryptionStandard;
 
 /**
  * Created by Sagi on 31/10/2015.
@@ -252,7 +253,14 @@ public class GamesManager {
                 jsonParam.put(GAME_TYPE, mGameType);
                 jsonParam.put(PLAYERS, new JSONArray(mPlayers));
 
-                writer.write(jsonParam.toString());
+                AdvancedEncryptionStandard aes = new AdvancedEncryptionStandard();
+                String origStr = jsonParam.toString();
+                String encpStr = aes.encrypt(origStr);
+
+                System.out.println(origStr);
+                System.out.println(encpStr);
+
+                writer.write(encpStr);
 
                 writer.flush();
                 writer.close();
