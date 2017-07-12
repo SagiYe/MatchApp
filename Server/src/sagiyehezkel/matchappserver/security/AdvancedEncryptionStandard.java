@@ -60,7 +60,7 @@ public class AdvancedEncryptionStandard {
 		try {
 			String rectifiedString = cipherStr.replace("\\","");
 			
-			byte[] cipherText = Base64.getMimeDecoder().decode(rectifiedString.getBytes(StandardCharsets.UTF_8));
+			byte[] cipherText = Base64.getUrlDecoder().decode(rectifiedString.getBytes(StandardCharsets.UTF_8));
 			SecretKeySpec secretKey = new SecretKeySpec(key, ALGORITHM);
 			Cipher cipher = Cipher.getInstance(ALGORITHM);
 			cipher.init(Cipher.DECRYPT_MODE, secretKey);
