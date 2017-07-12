@@ -5,6 +5,7 @@ import java.net.InetSocketAddress;
 
 import com.sun.net.httpserver.HttpServer;
 
+import sagiyehezkel.matchappserver.handlers.BackupUserDatabaseHandler;
 import sagiyehezkel.matchappserver.handlers.NewGameHandler;
 import sagiyehezkel.matchappserver.handlers.RegistrationHandler;
 import sagiyehezkel.matchappserver.handlers.SyncContactsHandler;
@@ -21,7 +22,8 @@ public class Main {
 			server.createContext("/sync_contacts", new SyncContactsHandler());
 			server.createContext("/new_game", new NewGameHandler());
 			server.createContext("/update_game", new UpdateGameHandler());
-	        server.setExecutor(null); // a default executor
+			server.createContext("/user_database_backup", new BackupUserDatabaseHandler());
+			server.setExecutor(null); // a default executor
 	        server.start();
 	        
 	        System.out.println("Server is up . . .");

@@ -5,7 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBManager {
-	private static final String DATABASE_ASSRESS = "jdbc:sqlite:C:/MatchApp/Server/database/matchapp_server_database.db";
+	private static final String DATABASE_ASSRESS = "jdbc:sqlite:"
+			+ System.getProperty("user.home")
+			+ "/Documents/GitHub/MatchApp/Server/database"
+			+ "/matchapp_server_database.db";
 	static Connection connection = null;
 	
 	public static Connection getDbConnection() {

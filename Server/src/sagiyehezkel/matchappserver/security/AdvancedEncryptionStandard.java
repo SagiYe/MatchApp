@@ -2,6 +2,7 @@ package sagiyehezkel.matchappserver.security;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
@@ -42,7 +43,8 @@ public class AdvancedEncryptionStandard {
 	        cipher.init(Cipher.ENCRYPT_MODE, secretKey);
 	
 	        return new String(
-	        		Base64.getUrlEncoder().encode(cipher.doFinal(plainText))
+	        		Base64.getUrlEncoder().withoutPadding()
+	        		.encode(cipher.doFinal(plainText))
 	        		, StandardCharsets.UTF_8);
 	    } catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -58,14 +60,24 @@ public class AdvancedEncryptionStandard {
      */
     public String decrypt(String cipherStr) {
 		try {
+//			System.out.println(cipherStr);
 			String rectifiedString = cipherStr.replace("\\","");
+			rectifiedString = rectifiedString.replace(" ","");
+//			System.out.println(rectifiedString);
 			
-			byte[] cipherText = Base64.getUrlDecoder().decode(rectifiedString.getBytes(StandardCharsets.UTF_8));
+			
+		//	byte[] cipherText = Base64.getDecoder().decode(rectifiedString.getBytes());
+			
+			byte[] cipherText = DatatypeConverter.parseBase64Binary(rectifiedString);
+			
+//			System.out.println(DatatypeConverter.printBase64Binary(rectifiedString.getBytes()));
+			
+			
 			SecretKeySpec secretKey = new SecretKeySpec(key, ALGORITHM);
 			Cipher cipher = Cipher.getInstance(ALGORITHM);
 			cipher.init(Cipher.DECRYPT_MODE, secretKey);
 
-	        return new String(cipher.doFinal(cipherText), StandardCharsets.UTF_8);
+	        return new String(cipher.doFinal(cipherText));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

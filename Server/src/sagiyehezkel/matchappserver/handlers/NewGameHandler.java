@@ -22,11 +22,15 @@ public class NewGameHandler extends Handler {
 	@Override
 	protected String handleMsg(String request) {
 		try {
+			
 			AdvancedEncryptionStandard aes = new AdvancedEncryptionStandard();
+			request = aes.encrypt(request);
+			
+			System.out.println("Encripted:\t" + request);
+			
 			request = aes.decrypt(request);
 			
-			System.out.println(request);
-			
+			System.out.println("Decripted:\t" + request);
 			
 			JSONObject requestJson = new JSONObject(request);
 			String gameType = requestJson.getString(JSON_FIELD_NAME_GAME_TYPE);

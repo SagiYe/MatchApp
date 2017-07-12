@@ -37,16 +37,23 @@ public class AdvancedEncryptionStandard {
      */
     public String encrypt(String plainStr) {
     	try {
-	        byte[] plainText = plainStr.getBytes(StandardCharsets.UTF_8);
+	        byte[] plainText = plainStr.getBytes();
 	        SecretKeySpec secretKey = new SecretKeySpec(key, ALGORITHM);
 	        Cipher cipher = Cipher.getInstance(ALGORITHM);
 	        cipher.init(Cipher.ENCRYPT_MODE, secretKey);
-	
-	        return new String(
-	        		Base64.encode(cipher.doFinal(plainText),
-							Base64.NO_PADDING|Base64.NO_WRAP|Base64.URL_SAFE),
-                    StandardCharsets.UTF_8
-			);
+
+			//System.out.println(plainStr);
+
+			byte[] encryptStr = cipher.doFinal(plainText);
+			//System.out.println(new String(encryptStr));
+			byte[] encodedStr = Base64.encode(encryptStr, Base64.NO_PADDING | Base64.NO_WRAP | Base64.URL_SAFE);
+//			System.out.println(new String(encodedStr));
+
+			System.out.println(encryptStr);
+
+			String finalStr = new String(encryptStr);
+//			System.out.println(finalStr);
+	        return finalStr;
 	    } catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

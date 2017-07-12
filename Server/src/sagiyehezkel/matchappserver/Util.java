@@ -16,6 +16,16 @@ public class Util {
 		
 		return arrayList;
 	}
+	
+	public static byte[] fromJsonArrayToByteArray(JSONArray jsonArray) throws JSONException {
+		byte[] buffer = new byte[jsonArray.length()];
+        
+		for (int i=0; i < jsonArray.length(); i++) {
+			buffer[i] = (byte)jsonArray.getInt(i);
+		}
+		
+		return buffer;
+	}
 
 	public static String fromListToString(ArrayList<?> list) {
         StringBuilder sb = new StringBuilder();

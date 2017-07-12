@@ -256,11 +256,13 @@ public class GamesManager {
                 AdvancedEncryptionStandard aes = new AdvancedEncryptionStandard();
                 String origStr = jsonParam.toString();
                 String encpStr = aes.encrypt(origStr);
+                String decrStr = aes.decrypt(encpStr);
 
                 System.out.println(origStr);
                 System.out.println(encpStr);
+                System.out.println(decrStr);
 
-                writer.write(encpStr);
+                writer.write(origStr);
 
                 writer.flush();
                 writer.close();
