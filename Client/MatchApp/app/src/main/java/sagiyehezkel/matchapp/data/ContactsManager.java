@@ -33,6 +33,7 @@ import java.util.Map;
 import java.util.Vector;
 
 import sagiyehezkel.matchapp.Utility;
+import sagiyehezkel.matchapp.security.AdvancedEncryptionStandard;
 
 /**
  * Created by Sagi on 10/09/2015.
@@ -212,7 +213,14 @@ public class ContactsManager {
 
                 jsonParam.put(CONTACTS, ja);
 
-                writer.write(jsonParam.toString());
+                String str = jsonParam.toString();
+
+                if (Utility.withEncryption()) {
+                    AdvancedEncryptionStandard aes = new AdvancedEncryptionStandard();
+                    str = aes.encrypt(str);
+                }
+
+                writer.write(str);
 
                 writer.flush();
                 writer.close();
@@ -234,6 +242,11 @@ public class ContactsManager {
                     }
 
                     response = buffer.toString();
+                }
+
+                if (Utility.withEncryption()) {
+                    AdvancedEncryptionStandard aes = new AdvancedEncryptionStandard();
+                    response = aes.decrypt(response);
                 }
 
                 return Utility.fromJsonStrToArrayList(response, USERS);

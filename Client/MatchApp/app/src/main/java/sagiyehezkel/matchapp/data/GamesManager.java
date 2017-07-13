@@ -253,16 +253,14 @@ public class GamesManager {
                 jsonParam.put(GAME_TYPE, mGameType);
                 jsonParam.put(PLAYERS, new JSONArray(mPlayers));
 
-                AdvancedEncryptionStandard aes = new AdvancedEncryptionStandard();
-                String origStr = jsonParam.toString();
-                String encpStr = aes.encrypt(origStr);
-                String decrStr = aes.decrypt(encpStr);
+                String str = jsonParam.toString();
 
-                System.out.println(origStr);
-                System.out.println(encpStr);
-                System.out.println(decrStr);
+                if (Utility.withEncryption()) {
+                    AdvancedEncryptionStandard aes = new AdvancedEncryptionStandard();
+                    str = aes.encrypt(str);
+                }
 
-                writer.write(origStr);
+                writer.write(str);
 
                 writer.flush();
                 writer.close();
@@ -343,7 +341,14 @@ public class GamesManager {
                 jsonParam.put(STATUS, mNewStatus);
                 jsonParam.put(PLAYER, Utility.getPreferredPhone(mContext));
 
-                writer.write(jsonParam.toString());
+                String str = jsonParam.toString();
+
+                if (Utility.withEncryption()) {
+                    AdvancedEncryptionStandard aes = new AdvancedEncryptionStandard();
+                    str = aes.encrypt(str);
+                }
+
+                writer.write(str);
 
                 writer.flush();
                 writer.close();

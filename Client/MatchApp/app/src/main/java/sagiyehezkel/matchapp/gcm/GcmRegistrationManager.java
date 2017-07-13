@@ -26,6 +26,7 @@ import java.net.URL;
 
 import sagiyehezkel.matchapp.R;
 import sagiyehezkel.matchapp.Utility;
+import sagiyehezkel.matchapp.security.AdvancedEncryptionStandard;
 
 /**
  * Created by Sagi on 08/09/2015.
@@ -130,7 +131,14 @@ public class GcmRegistrationManager {
             jsonParam.put("PHONE", phone);
             jsonParam.put("REGID", mRegid);
 
-            writer.write(jsonParam.toString());
+            String str = jsonParam.toString();
+
+            if (Utility.withEncryption()) {
+                AdvancedEncryptionStandard aes = new AdvancedEncryptionStandard();
+                str = aes.encrypt(str);
+            }
+
+            writer.write(str);
 
             writer.flush();
             writer.close();

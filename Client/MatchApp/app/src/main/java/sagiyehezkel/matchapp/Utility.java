@@ -31,8 +31,10 @@ import java.util.List;
  * Created by Sagi on 08/09/2015.
  */
 public class Utility {
-    public static final String SERVER_ADDRESS = "http://0d37cee3.ngrok.io";
-//    public static final String SERVER_ADDRESS = "http://10.0.0.13:48123";
+    public static final boolean TO_ENCRYPT = true;
+
+    public static final String SERVER_ADDRESS = "http://a88a5487.ngrok.io";
+
 
     private static int mNotificationId = 1;
 
@@ -207,5 +209,9 @@ public class Utility {
         }
 
         return isInBackground;
+    }
+
+    public static boolean withEncryption() {
+        return TO_ENCRYPT;
     }
 }

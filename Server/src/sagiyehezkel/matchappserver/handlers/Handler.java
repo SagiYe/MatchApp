@@ -9,7 +9,11 @@ import java.io.OutputStream;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
+import sagiyehezkel.matchappserver.security.AdvancedEncryptionStandard;
+
 public abstract class Handler implements HttpHandler {
+	public static final boolean WITH_ENCRYPTION = true;
+
 
 	@Override
 	public void handle(HttpExchange t) throws IOException {
@@ -43,10 +47,23 @@ public abstract class Handler implements HttpHandler {
         // Handling Response
         System.out.println(getHandlerName());
         System.out.print("\tIn  Msg:\t" + request);
+        
+        if (WITH_ENCRYPTION) {
+        	AdvancedEncryptionStandard aes = new AdvancedEncryptionStandard();
+			request = aes.decrypt(request);
+			System.out.println("\tDecrypted:\t" + request);
+        }
+        
         String response = handleMsg(request);
+       
         if (response == null)
         	response = "";
-        System.out.println("\tOut Msg:\t" + response + "\n");
+        else {
+        	System.out.println("\tOut Msg:\t" + response + "\n");
+            AdvancedEncryptionStandard aes = new AdvancedEncryptionStandard();
+        	response = aes.encrypt(response);
+			System.out.println("\tEncrypted:\t" + response);
+        }
         
         t.sendResponseHeaders(200, response.length());
         OutputStream os = t.getResponseBody();

@@ -5,7 +5,7 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Base64;
+import third.part.android.util.Base64;
 
 /**
  * Created by Sagi on 08/07/2017.
@@ -37,15 +37,15 @@ public class AdvancedEncryptionStandard {
      */
     public String encrypt(String plainStr) {
     	try {
-	        byte[] plainText = plainStr.getBytes(StandardCharsets.UTF_8);
+	        byte[] plainTextByteArr = plainStr.getBytes();
 	        SecretKeySpec secretKey = new SecretKeySpec(key, ALGORITHM);
 	        Cipher cipher = Cipher.getInstance(ALGORITHM);
 	        cipher.init(Cipher.ENCRYPT_MODE, secretKey);
-	
-	        return new String(
-	        		Base64.getUrlEncoder().withoutPadding()
-	        		.encode(cipher.doFinal(plainText))
-	        		, StandardCharsets.UTF_8);
+
+			byte[] encryptByteArr = cipher.doFinal(plainTextByteArr);
+			String encodedStr = Base64.encodeToString(encryptByteArr, Base64.NO_PADDING | Base64.NO_WRAP | Base64.URL_SAFE);
+
+	        return encodedStr;
 	    } catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -60,19 +60,7 @@ public class AdvancedEncryptionStandard {
      */
     public String decrypt(String cipherStr) {
 		try {
-//			System.out.println(cipherStr);
-			String rectifiedString = cipherStr.replace("\\","");
-			rectifiedString = rectifiedString.replace(" ","");
-//			System.out.println(rectifiedString);
-			
-			
-		//	byte[] cipherText = Base64.getDecoder().decode(rectifiedString.getBytes());
-			
-			byte[] cipherText = DatatypeConverter.parseBase64Binary(rectifiedString);
-			
-//			System.out.println(DatatypeConverter.printBase64Binary(rectifiedString.getBytes()));
-			
-			
+			byte[] cipherText = Base64.decode(cipherStr, Base64.NO_PADDING | Base64.NO_WRAP | Base64.URL_SAFE);
 			SecretKeySpec secretKey = new SecretKeySpec(key, ALGORITHM);
 			Cipher cipher = Cipher.getInstance(ALGORITHM);
 			cipher.init(Cipher.DECRYPT_MODE, secretKey);

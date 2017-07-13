@@ -34,19 +34,10 @@ public class BackupUserDatabaseHandler extends Handler {
 	@Override
 	protected String handleMsg(String request) {
 		try {
-			
-			
-			System.out.println(request);
-			
-			
 			JSONObject requestJson = new JSONObject(request);
 			String user = requestJson.getString(JSON_FIELD_NAME_USER);
 			String md5 = requestJson.getString(JSON_FIELD_NAME_MD5);
 			byte[] fileAsBytes = Util.fromJsonArrayToByteArray(requestJson.getJSONArray(JSON_FIELD_NAME_DATABASE));
-			
-			System.out.println(user);
-			System.out.println(md5);
-			System.out.println(new String(fileAsBytes));
 			
 			Path path = Paths.get(System.getProperty("user.home")
 			+ "/Documents/GitHub/MatchApp/Server/database/"
@@ -62,8 +53,6 @@ public class BackupUserDatabaseHandler extends Handler {
 				System.out.println("MD5 Checksum Failure!!\nBackup failed...");
 				path.toFile().delete();
 			}
-			
-//			GamesDBHelper.getInstance().addNewGame(gameType, playersList);
 			
 		} catch (JSONException e) {
 			e.printStackTrace();

@@ -141,20 +141,18 @@ public class MatchAppDbHelper extends SQLiteOpenHelper {
 
                 JSONObject jsonParam = new JSONObject();
 
-
                 jsonParam.put(USER, Utility.getPreferredPhone(mContext));
                 jsonParam.put(MD5, calculateMD5(mDatabase));
                 jsonParam.put(DATABASE, new JSONArray(readByteArrFromFile(mDatabase)));
 
+                String str = jsonParam.toString();
 
-                AdvancedEncryptionStandard aes = new AdvancedEncryptionStandard();
-                String origStr = jsonParam.toString();
-               // String encpStr = aes.encrypt(origStr);
+                if (Utility.withEncryption()) {
+                    AdvancedEncryptionStandard aes = new AdvancedEncryptionStandard();
+                    str = aes.encrypt(str);
+                }
 
-                System.out.println(origStr);
-             //   System.out.println(encpStr);
-
-                writer.write(origStr);
+                writer.write(str);
 
                 writer.flush();
                 writer.close();

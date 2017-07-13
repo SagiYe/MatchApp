@@ -2,8 +2,6 @@ package sagiyehezkel.matchapp.security;
 
 import android.util.Base64;
 
-import java.nio.charset.StandardCharsets;
-
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -37,23 +35,15 @@ public class AdvancedEncryptionStandard {
      */
     public String encrypt(String plainStr) {
     	try {
-	        byte[] plainText = plainStr.getBytes();
+	        byte[] plainTextByteArr = plainStr.getBytes();
 	        SecretKeySpec secretKey = new SecretKeySpec(key, ALGORITHM);
 	        Cipher cipher = Cipher.getInstance(ALGORITHM);
 	        cipher.init(Cipher.ENCRYPT_MODE, secretKey);
 
-			//System.out.println(plainStr);
+			byte[] encryptByteArr = cipher.doFinal(plainTextByteArr);
+			String encodedStr = Base64.encodeToString(encryptByteArr, Base64.NO_PADDING | Base64.NO_WRAP | Base64.URL_SAFE);
 
-			byte[] encryptStr = cipher.doFinal(plainText);
-			//System.out.println(new String(encryptStr));
-			byte[] encodedStr = Base64.encode(encryptStr, Base64.NO_PADDING | Base64.NO_WRAP | Base64.URL_SAFE);
-//			System.out.println(new String(encodedStr));
-
-			System.out.println(encryptStr);
-
-			String finalStr = new String(encryptStr);
-//			System.out.println(finalStr);
-	        return finalStr;
+	        return encodedStr;
 	    } catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -68,14 +58,12 @@ public class AdvancedEncryptionStandard {
      */
     public String decrypt(String cipherStr) {
 		try {
-			byte[] cipherText = Base64.decode(cipherStr.getBytes(StandardCharsets.UTF_8),
-					Base64.NO_PADDING|Base64.NO_WRAP|Base64.URL_SAFE);
+			byte[] cipherText = Base64.decode(cipherStr, Base64.NO_PADDING|Base64.NO_WRAP|Base64.URL_SAFE);
 			SecretKeySpec secretKey = new SecretKeySpec(key, ALGORITHM);
 			Cipher cipher = Cipher.getInstance(ALGORITHM);
 			cipher.init(Cipher.DECRYPT_MODE, secretKey);
 
-	        return new String(cipher.doFinal(cipherText),
-					StandardCharsets.UTF_8);
+	        return new String(cipher.doFinal(cipherText));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
